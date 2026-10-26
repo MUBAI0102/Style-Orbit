@@ -56,18 +56,16 @@ npx vercel dist --prod
 
 适合已经使用 GitHub、希望代码和网站放在一起的情况。
 
-1. 新建一个 GitHub 仓库，例如 `style-orbit`。
-2. 把 `dist` **里面的四个文件**上传到仓库根目录：
-   `index.html`、`styles.css`、`app.bundle.js`、`THIRD_PARTY_NOTICES.md`。
-3. 进入仓库 **Settings → Pages**。
-4. **Build and deployment** 选择 **Deploy from a branch**。
-5. Branch 选择 `main`，目录选择 `/(root)`，点击 **Save**。
-6. 等待约 1 分钟，访问：
-   `https://你的用户名.github.io/style-orbit/`
+本仓库已提供 `.github/workflows/pages.yml`：推送到 `main` 后，会安装锁定依赖、构建网页，并仅发布网站所需文件。
 
-项目里已经使用相对路径（`styles.css`、`app.bundle.js`），因此部署到子目录也能正常工作。
+1. 将项目源码推送到 GitHub 仓库 `MUBAI0102/styleverse`。
+2. 进入 **Settings → Pages**，将 **Source** 设置为 **GitHub Actions**。
+3. 在 **Actions → Deploy website to GitHub Pages** 查看部署结果；需要时可点击 **Run workflow** 手动部署。
+4. 部署成功后访问：<https://mubai0102.github.io/styleverse/>。
 
-> 如果要发布为 `https://你的用户名.github.io/` 这样的根站点，请把仓库命名为 `你的用户名.github.io`。
+后续修改源码后提交并推送到 `main` 即可更新网站。桌面版压缩包发布到 **Releases**，不放入 Git 历史。
+
+项目使用相对资源路径与 `#/skill/...` 路由，支持 GitHub Pages 仓库子目录。
 
 ---
 
