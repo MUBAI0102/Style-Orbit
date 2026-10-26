@@ -1,0 +1,21 @@
+node_modules/
+.qa-*/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# Local configuration and user libraries
+.env
+.env.*
+!.env.example
+*.log
+library.json
+
+# Generated distributions and bundled Electron runtime
+/dist/
+/desktop/dist/
+/desktop/runtime/
+/desktop/app/ui/
+/style-orbit-site.zip
+/_site/

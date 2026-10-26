@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06070a">
+  <meta name="description" content="STYLE / ORBIT —— 从 GitHub 与抖音收录的 75 个风格化改造照片 Skill / Prompt，以 3D 轨道画廊的方式环绕展示。">
+  <title>STYLE / ORBIT — 风格化照片 Skill / Prompt 轨道</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2306070a'/%3E%3Cpath d='M32 9l4.8 17.2L54 32l-17.2 4.8L32 54l-4.8-17.2L10 32l17.2-5.8z' fill='%23cbff45'/%3E%3C/svg%3E">
+</head>
+<body>
+  <div class="site-shell" id="siteShell">
+    <canvas id="scene" aria-label="75 个风格化照片示例的三维环绕画廊"></canvas>
+    <div class="scene-wash" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#orbit" id="brandHome" aria-label="STYLE ORBIT 首页">
+        <span class="brand-mark" aria-hidden="true"><i></i></span>
+        <span class="brand-type">
+          <strong>STYLE<span>/</span>ORBIT</strong>
+          <small>SKILLS &amp; PROMPTS</small>
+        </span>
+      </a>
+
+      <div class="top-marquee" aria-hidden="true">
+        <span class="status-dot"></span>
+        <span><span data-total>75</span> SKILLS + PROMPTS IN ORBIT</span>
+        <span class="marquee-slash">/</span>
+        <span>GITHUB × DOUYIN × LOCAL</span>
+      </div>
+
+      <nav class="top-actions" aria-label="页面操作">
+        <button class="nav-button nav-button--add" id="addBtn" type="button" aria-label="添加本地 Skill 或提示词" aria-haspopup="dialog">
+          <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          <span class="nav-label">添加</span>
+        </button>
+        <button class="nav-button" id="catalogBtn" type="button" aria-label="打开技能目录，共 75 个 Skill / Prompt" aria-haspopup="dialog">
+          <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>
+          <span class="nav-label">风格目录</span>
+          <span class="nav-count" data-total>75</span>
+        </button>
+        <button class="nav-button nav-button--guide" id="guideBtn" type="button" aria-label="打开操作指南" aria-haspopup="dialog">
+          <span class="help-dot">?</span>
+          <span class="nav-label">操作指南</span>
+        </button>
+      </nav>
+    </header>
+
+    <main class="stage" id="stage">
+      <section class="hero" aria-label="项目介绍">
+        <p class="eyebrow">
+          <span class="eyebrow-rule"></span>
+          A GITHUB × DOUYIN × LOCAL ATLAS <span class="eyebrow-vol">VOL. 01</span>
+        </p>
+        <h1 class="hero-title">
+          <span class="hero-line">让照片</span>
+          <span class="hero-line hero-line--outline">脱离</span>
+          <span class="hero-line hero-line--last">原样<span class="hero-dot">.</span></span>
+        </h1>
+        <p class="hero-sub">
+          从 GitHub、抖音与本地收藏收录的 <strong data-total>75</strong> 个风格化改造 Skill / Prompt。<br>
+          每一张示例，都是照片的另一种命运。
+        </p>
+        <p class="hero-mobile-note"><span data-total>75</span> CREATIVES · LOCAL LIBRARY · DRAG TO ORBIT</p>
+        <div class="hero-meta">
+          <div class="hero-stat">
+            <strong data-total>75</strong>
+            <span>SKILLS + PROMPTS<br>IN ORBIT</span>
+          </div>
+          <span class="hero-meta-line"></span>
+          <div class="hero-source">
+            <span>CURATED FROM</span>
+            <a href="https://github.com/Vieeeeeee/wibi-style" target="_blank" rel="noreferrer">@WIBI STYLE <span aria-hidden="true">↗</span></a>
+            <span class="hero-source-alt">× 抖音创作者 × 我的本地库</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="scene-label scene-label--right" aria-hidden="true">
+        <span>ORBIT SYSTEM / 01</span>
+        <span>LIVE FEED</span>
+      </div>
+
+      <div class="scene-credit">
+        <span class="credit-kicker">SOURCE ARCHIVE</span>
+        <a href="https://github.com/Vieeeeeee/wibi-style" target="_blank" rel="noreferrer">GITHUB / WIBI-STYLE <span aria-hidden="true">↗</span></a>
+        <span>DOUYIN / 8 CREATOR WORKS + LOCAL</span>
+        <span>SKILLS &amp; SAMPLES © EACH AUTHOR.</span>
+      </div>
+
+      <div class="control-rail" aria-label="视角控制">
+        <button type="button" class="rail-button" id="autoToggle" aria-label="暂停自动巡航" aria-pressed="true" title="暂停 / 恢复自动巡航（空格）">
+          <svg class="icon icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6v12M16 6v12"/></svg>
+          <span class="rail-tip">自动巡航</span>
+        </button>
+        <button type="button" class="rail-button" id="resetView" aria-label="重置视角" title="重置视角（R）">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 8.4A7 7 0 0 1 19 10M4.6 14A7 7 0 0 0 18 15.6"/></svg>
+          <span class="rail-tip">重置视角</span>
+        </button>
+        <button type="button" class="rail-button" id="fullscreenToggle" aria-label="全屏浏览" title="全屏浏览">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"/></svg>
+          <span class="rail-tip">全屏</span>
+        </button>
+      </div>
+
+      <div class="orbit-readout" aria-hidden="true">
+        <span class="orbit-readout__no" id="orbitNo">NO. —</span>
+        <span class="orbit-readout__hint">HOVER TO IDENTIFY</span>
+      </div>
+
+      <div class="guide-dock" role="note" aria-label="操作提示">
+        <div class="dock-items">
+          <span class="dock-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 11V7a2 2 0 0 1 4 0v3M9 10V5a2 2 0 0 1 4 0v5M13 10V6a2 2 0 0 1 4 0v5M17 11V8a2 2 0 0 1 4 0v6c0 4-3 7-7 7h-1a7 7 0 0 1-6.4-4.2L4 11a2 2 0 0 1 3.5-2L9 12"/></svg>
+            <span><b class="input-desktop">拖拽</b><b class="input-touch">单指拖动</b> 旋转</span>
+          </span>
+          <span class="dock-sep"></span>
+          <span class="dock-item">
+            <svg class="dock-icon dock-icon--desktop" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="5"/><path d="M12 7v4"/></svg>
+            <svg class="dock-icon dock-icon--touch" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v5M16 3v5M4 8h4M16 8h4"/><path d="M8 8h8v3a4 4 0 0 1-8 0V8Z"/><path d="M4 15l-2 2 2 2M20 15l2 2-2 2"/></svg>
+            <span><b class="input-desktop">滚轮</b><b class="input-touch">双指</b> 缩放</span>
+          </span>
+          <span class="dock-sep"></span>
+          <span class="dock-item dock-item--hover">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.8 12 5.8 21.5 12 21.5 12 18 18.2 12 18.2 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.6"/></svg>
+            <span><b>悬停</b> 识别</span>
+          </span>
+          <span class="dock-sep"></span>
+          <span class="dock-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 3 5.6 16 2.3-6.1 6-2.2L5 3Z"/><path d="M15.5 3v2M21 8.5h-2M18.8 5.2l-1.5 1.5"/></svg>
+            <span><b class="input-desktop">点击</b><b class="input-touch">轻点</b> 进入</span>
+          </span>
+        </div>
+        <button type="button" class="dock-guide-btn" id="guideBtnDock" aria-label="打开操作指南">玩法 <span aria-hidden="true">↗</span></button>
+      </div>
+
+      <div class="hover-label" id="hoverLabel" aria-hidden="true">
+        <span class="hover-label__index" id="hoverIndex">01</span>
+        <span class="hover-label__copy">
+          <span class="hover-label__cat" id="hoverCat">PORTRAIT</span>
+          <strong id="hoverName">电蓝网点海报</strong>
+          <em id="hoverEn">Electric Blue Halftone Poster</em>
+        </span>
+        <span class="hover-label__cta">点击进入 <span aria-hidden="true">↗</span></span>
+      </div>
+
+      <div class="coachmark" id="coachmark" aria-hidden="true">
+        <span class="coachmark__mouse">
+          <svg viewBox="0 0 24 28" aria-hidden="true"><rect x="2" y="2" width="20" height="24" rx="10"/><path d="M12 7v5"/></svg>
+        </span>
+        <span>拖住画面，沿四条轨道探索 <span data-total>75</span> 种风格</span>
+        <button type="button" id="coachClose" aria-label="关闭提示">×</button>
+      </div>
+    </main>
+
+    <div class="click-flash" id="clickFlash" aria-hidden="true"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <section class="detail-page" id="detailPage" aria-hidden="true" aria-labelledby="detailTitle" tabindex="-1">
+    <div class="detail-atmosphere" aria-hidden="true">
+      <img id="detailBackdrop" alt="" draggable="false">
+      <span class="detail-atmosphere__wash"></span>
+      <span class="detail-atmosphere__grid"></span>
+    </div>
+    <span class="detail-ghost-number" id="detailGhost" aria-hidden="true">01</span>
+
+    <header class="detail-topbar">
+      <button class="back-button" id="detailBack" type="button">
+        <span class="back-button__arrow" aria-hidden="true">←</span>
+        <span>返回轨道</span>
+        <span class="keycap">ESC</span>
+      </button>
+      <span class="detail-brand" aria-hidden="true">STYLE<span>/</span>ORBIT</span>
+      <div class="detail-pager">
+        <span class="detail-count"><strong id="detailIndex">01</strong><span>/ <span data-total>75</span></span></span>
+        <button type="button" class="pager-button" id="detailPrev" aria-label="上一个条目">
+          <span aria-hidden="true">←</span>
+        </button>
+        <button type="button" class="pager-button" id="detailNext" aria-label="下一个条目">
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="detail-scroll" id="detailScroll">
+      <div class="detail-body">
+        <div class="detail-art-column">
+          <div class="detail-art-stage" id="artStage">
+            <span class="art-orbit art-orbit--one" aria-hidden="true"></span>
+            <span class="art-orbit art-orbit--two" aria-hidden="true"></span>
+            <figure class="art-frame" id="artFrame">
+              <span class="art-frame__tag" id="artTag">SAMPLE / 01</span>
+              <img id="detailImage" alt="风格化改造示例作品" draggable="false">
+              <figcaption class="art-frame__caption">
+                <span>AI STYLIZED SAMPLE</span>
+                <span id="artCategory">PORTRAIT</span>
+              </figcaption>
+            </figure>
+            <span class="art-note" aria-hidden="true">GENERATED<br>WITH SOURCE<br>STYLE SIGNAL</span>
+          </div>
+          <div class="detail-caption">
+            <span>示例作品 · 非原片</span>
+            <span id="detailCaptionCredit">VISUAL SKILL BY @威比 HUNTER WEI.</span>
+          </div>
+        </div>
+
+        <article class="detail-info">
+          <div class="detail-eyebrow">
+            <span class="detail-cat" id="detailCat">人像 / PORTRAIT</span>
+            <span class="detail-chip" id="detailBadge">GITHUB SKILL</span>
+          </div>
+          <h2 class="detail-title" id="detailTitle">电蓝网点海报</h2>
+          <p class="detail-en" id="detailEn">Electric Blue Halftone Poster</p>
+          <p class="detail-credit" id="detailCredit"></p>
+          <p class="detail-description" id="detailDescription"></p>
+
+          <div class="detail-facts">
+            <div class="fact">
+              <span class="fact-label">适合输入 / BEST FOR</span>
+              <p id="detailBestFor">单人人像或宠物大头照</p>
+            </div>
+            <div class="fact">
+              <span class="fact-label">系列 / COLLECTION</span>
+              <p id="detailGroup">Wibi Style · 人像 · 自拍</p>
+            </div>
+          </div>
+
+          <div class="detail-tags" id="detailTags" aria-label="视觉关键词"></div>
+
+          <div class="command-block">
+            <div class="command-head">
+              <span id="commandHeading">HOW TO USE / 调用指令</span>
+              <button type="button" class="copy-button" id="copyUsage">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+                <span id="copyUsageLabel">复制指令</span>
+              </button>
+            </div>
+            <code class="command-line"><span class="command-prompt">$</span><span id="detailCommand">Use $electric-blue-halftone-poster on this photo</span><span class="command-cursor" aria-hidden="true"></span></code>
+            <div class="command-foot">
+              <span id="commandHint">上传一张照片 · 在 Codex 中调用</span>
+              <span class="command-links">
+                <a id="detailRepo" href="#" target="_blank" rel="noreferrer" hidden>GitHub <span aria-hidden="true">↗</span></a>
+                <a id="detailGithub" href="#" target="_blank" rel="noreferrer">查看来源 <span aria-hidden="true">↗</span></a>
+              </span>
+            </div>
+          </div>
+
+          <div class="prompt-panel" id="promptPanel" hidden>
+            <div class="prompt-panel__head">
+              <span id="promptKicker">REFERENCE PROMPT / 参考提示词</span>
+              <span class="prompt-actions">
+                <button type="button" class="prompt-button" id="promptExpand" aria-expanded="false">展开全文</button>
+                <button type="button" class="prompt-button prompt-button--copy" id="copyPrompt">复制提示词</button>
+              </span>
+            </div>
+            <pre class="prompt-text" id="detailPrompt"></pre>
+          </div>
+
+          <div class="local-actions" id="detailLocalActions" hidden>
+            <span class="local-actions__label">LOCAL ENTRY / 本机条目</span>
+            <span class="local-actions__buttons">
+              <button type="button" class="local-action" id="detailEditLocal">编辑</button>
+              <button type="button" class="local-action local-action--danger" id="detailDeleteLocal">删除</button>
+            </span>
+          </div>
+
+          <div class="detail-footer">
+            <button type="button" class="next-skill" id="detailNextFooter">
+              <span>下一个 / NEXT CREATIVE</span>
+              <strong id="nextSkillName">粗线条漫画头像</strong>
+              <span class="next-arrow" aria-hidden="true">→</span>
+            </button>
+            <p class="rights-note" id="detailRights">示例图来自开源仓库 Wibi Style，版权归原作者所有；本页面为个人非商业可视化展示。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="detail-progress" aria-hidden="true"><span id="detailProgressBar"></span></div>
+  </section>
+
+  <div class="guide-modal modal-shell" id="guideModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-guide></div>
+    <section class="guide-panel" role="dialog" aria-modal="true" aria-labelledby="guideTitle" tabindex="-1">
+      <header class="modal-top">
+        <span class="modal-kicker">HOW TO ORBIT / 操作指南</span>
+        <button type="button" class="modal-close" data-close-guide aria-label="关闭操作指南">×</button>
+      </header>
+      <div class="guide-intro">
+        <span class="guide-starburst" aria-hidden="true">✳</span>
+        <h2 id="guideTitle">沿轨道，找到照片的<br><em>下一种可能。</em></h2>
+        <p>照片在四条环形轨道上公转。拖动视角，让某一种风格停在你面前。</p>
+        <p class="guide-local-note">顶部「添加」可把新的 Skill 或提示词放进本地库；同名、同英文名或同一段提示词会被拦截，slug 冲突会自动避开。</p>
+      </div>
+      <div class="guide-grid">
+        <article class="guide-step">
+          <span class="guide-step__no">01</span>
+          <span class="guide-step__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11V6.5a2 2 0 1 1 4 0V10m0-4.5a2 2 0 1 1 4 0V10m0-4a2 2 0 1 1 4 0v6.5c0 4.4-3.1 7.5-7.5 7.5H10a7 7 0 0 1-6.1-3.6L2.7 14a2 2 0 0 1 3.4-2.1L7 13"/></svg>
+          </span>
+          <h3>拖动旋转</h3>
+          <p>按住画面拖动，像转动唱片一样绕行整个轨道。</p>
+        </article>
+        <article class="guide-step">
+          <span class="guide-step__no">02</span>
+          <span class="guide-step__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="5"/><path d="M12 6v4"/></svg>
+          </span>
+          <h3>缩放靠近</h3>
+          <p>滚轮或双指捏合拉近视角，卡面细节会逐层显现。</p>
+        </article>
+        <article class="guide-step">
+          <span class="guide-step__no">03</span>
+          <span class="guide-step__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.8 12 5.8 21.5 12 21.5 12 18 18.2 12 18.2 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.6"/></svg>
+          </span>
+          <h3>悬停识别</h3>
+          <p>把指针停在照片上，读取风格名、分类与适合的照片类型。</p>
+        </article>
+        <article class="guide-step">
+          <span class="guide-step__no">04</span>
+          <span class="guide-step__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 3 5.6 16 2.3-6.1 6-2.2L5 3Z"/><path d="M15.5 3v2M21 8.5h-2M18.8 5.2l-1.5 1.5"/></svg>
+          </span>
+          <h3>点击着陆</h3>
+          <p>点击照片触发发光锁定，进入详情页查看调用指令、完整提示词与原作来源。</p>
+        </article>
+      </div>
+      <div class="guide-keymap">
+        <span><kbd>拖拽</kbd> 绕轨道旋转</span>
+        <span><kbd>滚轮</kbd> 缩放</span>
+        <span><kbd>R</kbd> 重置视角</span>
+        <span><kbd>Space</kbd> 自动巡航</span>
+        <span><kbd>Esc</kbd> 返回 / 关闭</span>
+      </div>
+      <footer class="guide-footer">
+        <span><span data-total>75</span> SKILLS / PROMPTS · <a href="https://github.com/Vieeeeeee/wibi-style" target="_blank" rel="noreferrer">WIBI STYLE ON GITHUB ↗</a></span>
+        <span>GITHUB × DOUYIN × LOCAL · LOCAL ENTRIES STAY ON THIS DEVICE.</span>
+      </footer>
+    </section>
+  </div>
+
+  <div class="catalog-shell modal-shell" id="catalogModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-catalog></div>
+    <section class="catalog-panel" role="dialog" aria-modal="true" aria-labelledby="catalogTitle" tabindex="-1">
+      <header class="catalog-header">
+        <div>
+          <span class="modal-kicker">SKILL &amp; PROMPT INDEX / 完整目录</span>
+          <h2 id="catalogTitle"><span data-total>75</span> 种风格，<em>一次看全。</em></h2>
+        </div>
+        <button type="button" class="modal-close" data-close-catalog aria-label="关闭技能目录">×</button>
+      </header>
+      <div class="catalog-toolbar">
+        <div class="filter-chips" id="filterChips" aria-label="按类别筛选"></div>
+        <label class="catalog-search">
+          <span class="sr-only">搜索风格</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+          <input type="search" id="catalogSearch" placeholder="搜索风格 / 中文或英文" autocomplete="off">
+        </label>
+      </div>
+      <div class="catalog-grid" id="catalogGrid"></div>
+      <div class="catalog-empty" id="catalogEmpty" hidden>没有找到匹配的风格或提示词，换一个关键词试试。</div>
+      <footer class="catalog-footer">
+        <span>Wibi Style 44 个原创 Skill 来自 <a href="https://github.com/Vieeeeeee/wibi-style" target="_blank" rel="noreferrer">github.com/Vieeeeeee/wibi-style</a>；31 个新增 Skill / Prompt 来自 8 个抖音作品，版权归各创作者所有。</span>
+        <span>抖音来源：<a href="https://v.douyin.com/kJMooKTeG6A/" target="_blank" rel="noreferrer">@小麦果汁AI</a> · <a href="https://v.douyin.com/rSfO3FIvUdc/" target="_blank" rel="noreferrer">@Cooper说</a> · <a href="https://v.douyin.com/bMOpW162ons/" target="_blank" rel="noreferrer">@拾光少年</a> · <a href="https://v.douyin.com/X3DcteAGvx0/" target="_blank" rel="noreferrer">@Starryear年</a> · <a href="https://v.douyin.com/VUtCWLyaZms/" target="_blank" rel="noreferrer">@李大埜</a> · <a href="https://v.douyin.com/zm414MxDi14/" target="_blank" rel="noreferrer">@尘风里</a> · <a href="https://v.douyin.com/GY5ppQYBz0w/" target="_blank" rel="noreferrer">流光提示词</a> · <a href="https://v.douyin.com/Vg1U2MRGZ-A/" target="_blank" rel="noreferrer">@兔七哥</a></span>
+        <span>相关 GitHub 项目：<a href="https://github.com/GZ-L/photo-to-poster-skills" target="_blank" rel="noreferrer">photo-to-poster-skills</a> · <a href="https://github.com/241428871-cell/TC-photo-skills" target="_blank" rel="noreferrer">TC-photo-skills</a> · <a href="https://github.com/jyi06/image-style-transfer" target="_blank" rel="noreferrer">image-style-transfer</a> · <a href="https://github.com/MinusZoneAI/ComfyUI-StylizePhoto-MZ" target="_blank" rel="noreferrer">ComfyUI-StylizePhoto-MZ</a></span>
+        <span>本地库：<strong data-local-count>0</strong> 条本机 Skill / Prompt · 仅保存在这台电脑 · 同名与同提示词自动拦截</span>
+      </footer>
+    </section>
+  </div>
+
+  <div class="add-shell modal-shell" id="addModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-add></div>
+    <section class="add-panel" role="dialog" aria-modal="true" aria-labelledby="addHeading" tabindex="-1">
+      <header class="add-header">
+        <div>
+          <span class="modal-kicker" id="addKicker">LOCAL LIBRARY / 本地新增</span>
+          <h2 id="addHeading">把新的 <em>Skill / Prompt</em><br>放进轨道。</h2>
+          <p>只保存在这台电脑。添加前会自动检查中文名、英文名与提示词全文；slug 冲突会自动避开。</p>
+        </div>
+        <button type="button" class="modal-close" data-close-add aria-label="关闭添加面板">×</button>
+      </header>
+
+      <form id="addForm" novalidate>
+        <div class="add-kind-switch" role="group" aria-label="条目类型">
+          <button type="button" class="kind-option is-active" data-add-kind="skill" aria-pressed="true">
+            <span>01</span> SKILL / 技能
+          </button>
+          <button type="button" class="kind-option" data-add-kind="prompt" aria-pressed="false">
+            <span>02</span> PROMPT / 提示词
+          </button>
+        </div>
+
+        <div class="add-grid">
+          <div class="add-fields">
+            <div class="add-row add-row--2">
+              <label class="add-field">
+                <span>中文名 <b>*</b></span>
+                <input id="addZh" type="text" maxlength="80" placeholder="例如：雨夜霓虹电影感" autocomplete="off" required>
+              </label>
+              <label class="add-field">
+                <span>英文名 / EN</span>
+                <input id="addEn" type="text" maxlength="160" placeholder="Neon Rain Cinema" autocomplete="off">
+              </label>
+            </div>
+
+            <div class="add-duplicate" id="addDuplicate">
+              <span class="add-label">重复检查 / DUPLICATE CHECK</span>
+              <div class="add-duplicate__body" id="addDuplicateBody">
+                <strong>填写名称后自动检查</strong>
+                <p>会与现有 <span data-total>75</span> 个条目及本地条目比对。同名、同英文名和同一段提示词会被拦截。</p>
+              </div>
+              <div class="add-confirm" id="addConfirmWrap" hidden>
+                <label><input id="addConfirmUnique" type="checkbox"> 我看过了，确认不是重复条目</label>
+              </div>
+            </div>
+
+            <div class="add-row add-row--2">
+              <label class="add-field">
+                <span>调用 ID / SLUG</span>
+                <input id="addSlug" type="text" maxlength="80" placeholder="留空自动生成" autocomplete="off" spellcheck="false">
+                <small>用于直达链接 <code>#/skill/...</code>，重复时会自动避开。</small>
+              </label>
+              <label class="add-field">
+                <span>分类 / CATEGORY</span>
+                <select id="addCategory"></select>
+              </label>
+            </div>
+
+            <label class="add-field">
+              <span>一句话描述 / DESCRIPTION</span>
+              <textarea id="addDescription" rows="3" maxlength="1200" placeholder="它会把照片变成什么样？适合用在什么照片上？"></textarea>
+            </label>
+
+            <div class="add-row add-row--2">
+              <label class="add-field">
+                <span>适合输入 / BEST FOR</span>
+                <input id="addBestFor" type="text" maxlength="400" placeholder="例如：夜景、街拍、单人人像" autocomplete="off">
+              </label>
+              <label class="add-field">
+                <span>标签 / TAGS</span>
+                <input id="addTags" type="text" maxlength="240" placeholder="霓虹, 夜景, 电影感" autocomplete="off">
+              </label>
+            </div>
+
+            <label class="add-field">
+              <span><span id="addPromptLabel">参考提示词（可选）</span></span>
+              <textarea id="addPrompt" rows="5" maxlength="30000" placeholder="如果是 Skill，可粘贴它的参考提示词；如果选择 Prompt，这里必填。"></textarea>
+            </label>
+
+            <div class="add-row add-row--2">
+              <label class="add-field">
+                <span>来源链接 / SOURCE</span>
+                <input id="addSourceUrl" type="url" maxlength="600" placeholder="https://...（可留空）" autocomplete="off">
+              </label>
+              <label class="add-field">
+                <span>作者 / CREATOR</span>
+                <input id="addCreator" type="text" maxlength="80" value="我" autocomplete="off">
+              </label>
+            </div>
+          </div>
+
+          <aside class="add-aside">
+            <div class="add-image-block">
+              <span class="add-label">示例图 / COVER</span>
+              <button type="button" class="add-image-preview" id="addImagePick" aria-label="选择示例图片">
+                <img id="addImagePreview" alt="本地条目封面预览">
+                <span class="add-image-hint">点击选择图片<br><small>PNG / JPG / WebP · 自动压缩</small></span>
+              </button>
+              <input id="addImageInput" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+              <div class="add-image-actions">
+                <span id="addImageName">未选择图片 · 自动生成封面</span>
+                <button type="button" id="addImageClear">移除</button>
+              </div>
+            </div>
+
+            <div class="add-storage">
+              <span class="add-label">本地存储 / LOCAL ONLY</span>
+              <p id="addStorageNote">保存在这台电脑，不会上传网络。</p>
+              <button type="button" id="addOpenData" hidden>打开数据文件夹 ↗</button>
+              <p class="add-storage-count">本地库已有 <strong id="addLocalCount">0</strong> 条</p>
+            </div>
+          </aside>
+        </div>
+
+        <p class="add-error" id="addFormError" role="alert" hidden></p>
+
+        <footer class="add-footer">
+          <span>保存后会自动重新校准轨道 · 可随时编辑或删除</span>
+          <span class="add-footer__actions">
+            <button type="button" class="add-button add-button--ghost" data-close-add>取消</button>
+            <button type="submit" class="add-button add-button--primary" id="addSubmit">保存并进入轨道 <span aria-hidden="true">→</span></button>
+          </span>
+        </footer>
+      </form>
+    </section>
+  </div>
+
+  <div class="boot-screen" id="bootScreen" aria-live="polite">
+    <div class="boot-grid" aria-hidden="true"></div>
+    <header class="boot-header">
+      <span>STYLE<span class="boot-slash">/</span>ORBIT</span>
+      <span>INITIALIZING VISUAL FIELD</span>
+    </header>
+    <div class="boot-center">
+      <div class="boot-index" aria-hidden="true" data-total>75</div>
+      <p class="boot-kicker">GITHUB × DOUYIN × LOCAL STYLIZED PHOTO SKILLS</p>
+      <h1>正在校准<br>风格轨道<span class="boot-blink">_</span></h1>
+      <div class="boot-progress">
+        <span class="boot-progress__fill" id="bootFill"></span>
+      </div>
+      <div class="boot-readout">
+        <span id="bootStatus">LOADING SAMPLE IMAGERY</span>
+        <span id="bootPercent">0%</span>
+      </div>
+    </div>
+    <footer class="boot-footer">
+      <span>SOURCE / GITHUB × DOUYIN × LOCAL</span>
+      <span><span data-total>75</span> SKILLS / PROMPTS · 4 ORBITS · ONE CORE</span>
+    </footer>
+  </div>
+
+  <noscript>
+    <div class="noscript">需要启用 JavaScript 才能进入 STYLE / ORBIT。</div>
+  </noscript>
+
+  <script src="app.bundle.js"></script>
+</body>
+</html>

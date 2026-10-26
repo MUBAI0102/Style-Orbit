@@ -1,0 +1,16 @@
+{
+  "name": "style-orbit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "An offline 3D orbital gallery of 75 stylized-photo Skills and prompts collected from GitHub and Douyin.",
+  "scripts": {
+    "build": "esbuild src/main.js --bundle --format=iife --target=es2020 --minify --outfile=app.bundle.js",
+    "serve": "python -m http.server 4173"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.12"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "style-orbit-desktop",
+  "productName": "STYLE ORBIT",
+  "version": "1.0.0",
+  "private": true,
+  "description": "STYLE / ORBIT desktop gallery with a local Skill and Prompt library.",
+  "main": "main.js",
+  "author": "STYLE / ORBIT",
+  "license": "UNLICENSED"
+}
